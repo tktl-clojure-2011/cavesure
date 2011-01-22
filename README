@@ -1,0 +1,8 @@
+Cavesure
+========
+
+A game where you can find a sword.
+
+Run "lein midje" to run tests.
+
+You can't actually play it (yet).
