@@ -1,7 +1,5 @@
 (ns cavesure.core)
 
-(def output println)
-
 (def starting-room nil)
 (def windy-room nil)
 
