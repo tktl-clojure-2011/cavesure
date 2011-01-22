@@ -32,7 +32,7 @@
 
 (defn player-can-see []
   (or (not= (current-room) :dark-room)
-      ((:inventory @*game*) :candle)))
+      ((inventory) :candle)))
 
 (defn pick-up [item]
   (if-not (player-can-see)
@@ -46,6 +46,6 @@
 
 (defn look []
   (if (and (= (current-room) :dark-room)
-           (not ((:inventory @*game*) :candle)))
+           (not ((inventory) :candle)))
     "It's too dark to see."
     (get-in @*game* [:rooms (current-room)])))
