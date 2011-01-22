@@ -13,16 +13,17 @@
 (defn start-game []
   (load-resources "resources/rooms.clj")
   (swap! *game* #(conj % [:inventory #{}]))
-  (output "Welcome to Cavesure"))
+  "Welcome to Cavesure")
 
 (defn current-room []
   (:current-room @*game*))
 
 (defn move [direction]
-  (if-let [next-room (get-in @*game* [:exits (current-room) direction])]
+  (if-let [next-room (get-in @*game*
+                             [:exits (current-room) direction])]
     (do (swap! *game* (fn [game] (conj game [:current-room next-room] )))
-        (output "You move" direction))
-    (output "You can't move that way!")))
+        (str "You move " direction))
+    "You can't move that way!"))
 
 (defn items-in-current-room []
   (get-in @*game* [:items (current-room)]))
@@ -41,8 +42,9 @@
       (do (swap! *game* (fn [game] (update-in
                                    (update-in game [:items (current-room)] #(disj % item))
                                    [:inventory]
-                                   #(conj % item)))))
-      (output "I don't see" item))))
+                                   #(conj % item))))
+          (str "You pick up " item))
+      (str "I don't see " item))))
 
 (defn look []
   (if (and (= (current-room) :dark-room)

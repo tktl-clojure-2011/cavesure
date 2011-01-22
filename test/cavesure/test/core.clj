@@ -2,9 +2,12 @@
   (:use cavesure.core :reload)
   (:use midje.sweet))
 
-(fact "game starts in a room"
+(fact "game welcomes the player"
+      (start-game) => #"Welcome")
+
+(fact "game starts in the windy room"
       (do (start-game)
-          (current-room) => truthy))
+          (current-room) => :windy-room))
 
 (fact "starting room has a candle"
       (do (start-game)
@@ -12,12 +15,12 @@
 
 (fact "player can pick up candle"
       (do (start-game)
-          (pick-up :candle)
+          (pick-up :candle) => "You pick up :candle"
           (items-in-current-room) => #{}))
 
 (fact "player can move south"
       (do (start-game)
-          (move :south)
+          (move :south) => "You move :south"
           (current-room) => :dark-room))
 
 (fact "player can't see in the dark room without a candle"
@@ -36,9 +39,11 @@
           (move :south)
           (look) => #"big"))
 
+;.;. Good code is its own best documentation. -- Steve McConnell
 (fact "player can pick up sword if he has the candle"
       (do (start-game)
           (pick-up :candle)
           (move :south)
-          (pick-up :sword)
+          (pick-up :sword) => "You pick up :sword"
+          (items-in-current-room) => #{}
           (inventory) => (contains #{:sword :candle})))
