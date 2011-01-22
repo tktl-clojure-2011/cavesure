@@ -6,9 +6,9 @@
       (do (start-game)
           (current-room) => truthy))
 
-(fact "room has a sword"
+(fact "starting room has a candle"
       (do (start-game)
-          (items-in-current-room) => (contains #{:sword})))
+          (items-in-current-room) => (contains #{:candle})))
 
 (fact "player can pick up candle"
       (do (start-game)
