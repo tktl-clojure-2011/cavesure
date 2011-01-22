@@ -15,14 +15,14 @@
   (swap! *game* #(conj % [:inventory #{}]))
   (output "Welcome to Cavesure"))
 
+(defn current-room []
+  (:current-room @*game*))
+
 (defn move [direction]
   (if-let [next-room (get-in @*game* [:exits (current-room) direction])]
     (do (swap! *game* (fn [game] (conj game [:current-room next-room] )))
         (output "You move" direction))
     (output "You can't move that way!")))
-
-(defn current-room []
-  (:current-room @*game*))
 
 (defn items-in-current-room []
   (get-in @*game* [:items (current-room)]))
